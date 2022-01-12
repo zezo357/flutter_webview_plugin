@@ -355,7 +355,6 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
         binding.addActivityResultListener(this);
         if (webViewManager != null || webViewManager.closed != true) {
             webViewManager.setNewActivity(activity);
-            activity.addContentView(webViewManager.webView, params);
         }
     }
 
