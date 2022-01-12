@@ -128,6 +128,7 @@ class WebviewManager {
     private boolean ignoreSSLErrors = false;
     void setNewActivity(Activity newActivity) {
         this.activity = newActivity;
+        this.webView = new ObservableWebView(activity);
     }
     WebviewManager(final Activity activity, final Context context, final List<String> channelNames) {
         this.webView = new ObservableWebView(activity);
