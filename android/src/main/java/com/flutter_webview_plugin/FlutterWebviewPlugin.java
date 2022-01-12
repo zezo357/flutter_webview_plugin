@@ -333,8 +333,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, P
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
-        //context = binding.getApplicationContext();
-
+        context = binding.getApplicationContext();
         channel.setMethodCallHandler(this);
 
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
