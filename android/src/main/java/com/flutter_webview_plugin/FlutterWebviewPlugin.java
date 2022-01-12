@@ -335,10 +335,10 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
 
-        channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
-        context = binding.getApplicationContext();
+        this.channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
+        this.context = binding.getApplicationContext();
 
-        channel.setMethodCallHandler(this);
+        this.channel.setMethodCallHandler(this);
 
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
         //registrar.addActivityResultListener(instance);
@@ -351,26 +351,27 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
-
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
+        if (webViewManager != null || webViewManager.closed != true) {
+            webViewManager.setNewActivity(activity);
+            FrameLayout.LayoutParams params = buildLayoutParams(call);
+            activity.addContentView(webViewManager.webView, params);
+        }
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-
         this.activity=null;
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        activity = binding.getActivity();
-        binding.addActivityResultListener(this);
+        onAttachedToActivity(binding);
     }
 
     @Override
     public void onDetachedFromActivity() {
-
         this.activity=null;
     }
 }

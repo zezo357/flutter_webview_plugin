@@ -126,7 +126,9 @@ class WebviewManager {
     ResultHandler resultHandler;
     Context context;
     private boolean ignoreSSLErrors = false;
-
+    void setNewActivity(Activity newActivity) {
+        this.activity = newActivity;
+    }
     WebviewManager(final Activity activity, final Context context, final List<String> channelNames) {
         this.webView = new ObservableWebView(activity);
         this.activity = activity;
