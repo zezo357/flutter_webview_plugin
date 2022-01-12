@@ -322,13 +322,13 @@ public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, P
         return (int) (dp * scale + 0.5f);
     }
 
-   // @Override
-   // public boolean onActivityResult(int i, int i1, Intent intent) {
-     //   if (webViewManager != null && webViewManager.resultHandler != null) {
-     //       return webViewManager.resultHandler.handleResult(i, i1, intent);
-     //   }
-     //   return false;
-    //}
+    @Override
+   public boolean onActivityResult(int i, int i1, Intent intent) {
+       if (webViewManager != null && webViewManager.resultHandler != null) {
+           return webViewManager.resultHandler.handleResult(i, i1, intent);
+       }
+        return false;
+    }
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
