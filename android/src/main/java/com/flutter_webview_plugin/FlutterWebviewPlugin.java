@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.os.Build;
-import com.amap.flutter.map.utils.LogUtil;
+
 
 
 import java.util.ArrayList;
@@ -28,10 +28,9 @@ import io.flutter.plugin.common.PluginRegistry;
 /**
  * FlutterWebviewPlugin
  */
-public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
+public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
-    private static final String CLASS_NAME = "FlutterWebviewPlugin";
     private Context context;
     static MethodChannel channel;
     private static final String CHANNEL_NAME = "flutter_webview_plugin";
@@ -335,7 +334,6 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
-        LogUtil.i(CLASS_NAME, "onAttachedToEngine");
 
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
         context = binding.getApplicationContext();
@@ -344,40 +342,10 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
         //registrar.addActivityResultListener(instance);
-
     }
 
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
-        LogUtil.i(CLASS_NAME, "onDetachedFromEngine");
     }
 
-    @Override
-    public void onAttachedToActivity(ActivityPluginBinding binding) {
-        LogUtil.i(CLASS_NAME, "onAttachedToActivity");
-
-        activity = binding.getActivity();
-        binding.addActivityResultListener(this);
-    }
-
-    @Override
-    public void onDetachedFromActivityForConfigChanges() {
-        LogUtil.i(CLASS_NAME, "onDetachedFromActivityForConfigChanges");
-
-        this.activity=null;
-    }
-
-    @Override
-    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        LogUtil.i(CLASS_NAME, "onReattachedToActivityForConfigChanges");
-        activity = binding.getActivity();
-        binding.addActivityResultListener(this);
-    }
-
-    @Override
-    public void onDetachedFromActivity() {
-        LogUtil.i(CLASS_NAME, "onDetachedFromActivity");
-
-        this.activity=null;
-    }
 }
