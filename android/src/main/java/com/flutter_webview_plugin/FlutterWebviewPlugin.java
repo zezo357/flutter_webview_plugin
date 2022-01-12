@@ -30,6 +30,8 @@ import io.flutter.plugin.common.PluginRegistry;
 public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
+    private static final String TAG = "mytag";
+
     private Context context;
     static MethodChannel channel;
     private static final String CHANNEL_NAME = "flutter_webview_plugin";
@@ -333,7 +335,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
-        Log.i("onAttachedToEngine");
+        Log.i(TAG,"onAttachedToEngine");
 
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
         context = binding.getApplicationContext();
@@ -347,30 +349,30 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
-        Log.i("onDetachedFromEngine");
+        Log.i(TAG,"onDetachedFromEngine");
     }
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
-        Log.i("onAttachedToActivity");
+        Log.i(TAG,"onAttachedToActivity");
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        Log.i("onDetachedFromActivityForConfigChanges");
+        Log.i(TAG,"onDetachedFromActivityForConfigChanges");
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        Log.i("onReattachedToActivityForConfigChanges");
+        Log.i(TAG,"onReattachedToActivityForConfigChanges");
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
     @Override
     public void onDetachedFromActivity() {
-        Log.i("onDetachedFromActivity");
+        Log.i(TAG,"onDetachedFromActivity");
     }
 }
