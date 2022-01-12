@@ -332,7 +332,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
-        print("onAttachedToEngine");
+        Log.i("onAttachedToEngine");
 
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
         context = binding.getApplicationContext();
@@ -346,30 +346,30 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
-        print("onDetachedFromEngine");
+        Log.i("onDetachedFromEngine");
     }
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
-        print("onAttachedToActivity");
+        Log.i("onAttachedToActivity");
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        print("onDetachedFromActivityForConfigChanges");
+        Log.i("onDetachedFromActivityForConfigChanges");
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        print("onReattachedToActivityForConfigChanges");
+        Log.i("onReattachedToActivityForConfigChanges");
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
     @Override
     public void onDetachedFromActivity() {
-        print("onDetachedFromActivity");
+        Log.i("onDetachedFromActivity");
     }
 }
