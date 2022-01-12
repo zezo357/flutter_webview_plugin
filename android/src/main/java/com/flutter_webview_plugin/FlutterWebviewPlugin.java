@@ -30,7 +30,6 @@ import io.flutter.plugin.common.PluginRegistry;
 public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
-    private static final String TAG = "mytag";
 
     private Context context;
     static MethodChannel channel;
@@ -335,7 +334,6 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
-        Log.i(TAG,"onAttachedToEngine");
 
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
         context = binding.getApplicationContext();
@@ -349,30 +347,27 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
-        Log.i(TAG,"onDetachedFromEngine");
     }
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
-        Log.i(TAG,"onAttachedToActivity");
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        Log.i(TAG,"onDetachedFromActivityForConfigChanges");
+        this.activity=null;
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        Log.i(TAG,"onReattachedToActivityForConfigChanges");
         activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
     @Override
     public void onDetachedFromActivity() {
-        Log.i(TAG,"onDetachedFromActivity");
+        this.activity=null;
     }
 }
