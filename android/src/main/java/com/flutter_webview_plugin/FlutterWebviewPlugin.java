@@ -346,11 +346,11 @@ public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, P
         channel.setMethodCallHandler(null);
     }
 
-    //@Override
-    //public void onAttachedToActivity(ActivityPluginBinding binding) {
-       // activity = binding.getActivity();
-        //binding.addActivityResultListener(this);
-    //}
+    @Override
+    public void onAttachedToActivity(ActivityPluginBinding binding) {
+       activity = binding.getActivity();
+        binding.addActivityResultListener(this);
+    }
 
 
 }
