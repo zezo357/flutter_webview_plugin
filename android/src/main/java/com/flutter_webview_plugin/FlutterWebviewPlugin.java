@@ -344,10 +344,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
-        if (channel != null) {
-            channel.setMethodCallHandler(null);
-            channel = null;
-        }
+
     }
 
     @Override
@@ -358,10 +355,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        if (channel != null) {
-            channel.setMethodCallHandler(null);
-            channel = null;
-        }
+
     }
 
     @Override
@@ -372,9 +366,6 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromActivity() {
-        if (channel != null) {
-            channel.setMethodCallHandler(null);
-            channel = null;
-        }
+
     }
 }
