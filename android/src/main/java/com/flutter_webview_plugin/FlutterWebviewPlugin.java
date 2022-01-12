@@ -26,7 +26,7 @@ import io.flutter.plugin.common.PluginRegistry;
 /**
  * FlutterWebviewPlugin
  */
-public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener {
+public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
     private Context context;
@@ -323,17 +323,18 @@ public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, P
     }
 
     @Override
-   public boolean onActivityResult(int i, int i1, Intent intent) {
-       if (webViewManager != null && webViewManager.resultHandler != null) {
-           return webViewManager.resultHandler.handleResult(i, i1, intent);
-       }
+    public boolean onActivityResult(int i, int i1, Intent intent) {
+        if (webViewManager != null && webViewManager.resultHandler != null) {
+            return webViewManager.resultHandler.handleResult(i, i1, intent);
+        }
         return false;
     }
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
-        context = binding.getApplicationContext();
+        //context = binding.getApplicationContext();
+
         channel.setMethodCallHandler(this);
 
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
@@ -348,7 +349,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, P
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
-       activity = binding.getActivity();
+        activity = binding.getActivity();
         binding.addActivityResultListener(this);
     }
 
