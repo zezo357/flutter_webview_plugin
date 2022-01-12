@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
