@@ -359,7 +359,8 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-
+        activity = binding.getActivity();
+        binding.addActivityResultListener(this);
     }
 
     @Override
