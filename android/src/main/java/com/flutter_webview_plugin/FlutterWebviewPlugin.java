@@ -349,6 +349,9 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
         activity = binding.getActivity();
+        if (webViewManager != null || webViewManager.closed != true) {
+            webViewManager.setNewActivity(activity);
+        }
         binding.addActivityResultListener(this);
     }
 
@@ -359,7 +362,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-
+        onAttachedToActivity(binding);
     }
 
     @Override
