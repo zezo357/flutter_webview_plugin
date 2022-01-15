@@ -21,6 +21,8 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.provider.MediaStore;
 
+import android.util.Log;
+
 import androidx.core.content.FileProvider;
 
 import android.database.Cursor;
@@ -45,7 +47,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 class WebviewManager {
-
+    private static final String TAG = "WebviewManager";
     private ValueCallback<Uri> mUploadMessage;
     private ValueCallback<Uri[]> mUploadMessageArray;
     private final static int FILECHOOSER_RESULTCODE = 1;
@@ -187,7 +189,11 @@ class WebviewManager {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("image/*");
+                if(activity!=null){
                 activity.startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+                }else{
+                    Log.i(TAG, "activity is null");
+                }
 
             }
 
@@ -197,9 +203,13 @@ class WebviewManager {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("*/*");
+                if(activity!=null){
                 activity.startActivityForResult(
                         Intent.createChooser(i, "File Browser"),
                         FILECHOOSER_RESULTCODE);
+            }else{
+               Log.i(TAG, "activity is null");
+                        }
             }
 
             //For Android 4.1
@@ -208,8 +218,11 @@ class WebviewManager {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("image/*");
+                if(activity!=null){
                 activity.startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
-
+                }else{
+            Log.i(TAG, "activity is null");
+                }
             }
 
             //For Android 5.0+
@@ -252,7 +265,11 @@ class WebviewManager {
                 Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
                 chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
+                if(activity!=null){
                 activity.startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
+            }else{
+                Log.i(TAG, "activity is null");
+            }
                 return true;
             }
 
