@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     private WebviewManager webViewManager;
     private Context context;
     static MethodChannel channel;
+    private static final String TAG = "flutter_webview_plugin";
+
     private static final String CHANNEL_NAME = "flutter_webview_plugin";
     private static final String JS_CHANNEL_NAMES_FIELD = "javascriptChannelNames";
 
@@ -332,6 +335,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
+        Log.i(TAG, "onAttachedToEngine");
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
         context = binding.getApplicationContext();
 
@@ -354,6 +358,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     public void onAttachedToActivity(ActivityPluginBinding binding) {
         activity = binding.getActivity();
         if (webViewManager != null || webViewManager.closed != true) {
+            Log.i(TAG, "onAttachedToActivity set  activity");
             webViewManager.setNewActivity(activity);
         }
         binding.addActivityResultListener(this);
@@ -361,17 +366,21 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
+        Log.i(TAG, "onDetachedFromActivityForConfigChanges ");
         onDetachedFromActivity();
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+        Log.i(TAG, "onReattachedToActivityForConfigChanges ");
         onAttachedToActivity(binding);
     }
 
     @Override
     public void onDetachedFromActivity() {
+        Log.i(TAG, "onDetachedFromActivity ");
         if (webViewManager != null || webViewManager.closed != true) {
+            Log.i(TAG, "onDetachedFromActivity set null ");
             webViewManager.setNewActivity(null);
         }
     }
