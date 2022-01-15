@@ -27,7 +27,7 @@ import io.flutter.plugin.common.PluginRegistry;
 /**
  * FlutterWebviewPlugin
  */
-public class FlutterWebviewPlugin implements  MethodCallHandler, PluginRegistry.ActivityResultListener {
+public class FlutterWebviewPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
     private Context context;
@@ -326,5 +326,20 @@ public class FlutterWebviewPlugin implements  MethodCallHandler, PluginRegistry.
             return webViewManager.resultHandler.handleResult(i, i1, intent);
         }
         return false;
+    }
+    @Override
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
+        channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
+        context = binding.getApplicationContext();
+
+        channel.setMethodCallHandler(this);
+
+        //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
+        //registrar.addActivityResultListener(instance);
+
+    }
+
+    @Override
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
     }
 }
