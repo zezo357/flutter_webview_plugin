@@ -27,7 +27,7 @@ import io.flutter.plugin.common.PluginRegistry;
 /**
  * FlutterWebviewPlugin
  */
-public class FlutterWebviewPlugin implements  FlutterActivity ,MethodCallHandler, PluginRegistry.ActivityResultListener {
+public class FlutterWebviewPlugin implements  MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
     private Context context;
@@ -43,7 +43,7 @@ public class FlutterWebviewPlugin implements  FlutterActivity ,MethodCallHandler
             channel.setMethodCallHandler(instance);
         }
     }
-
+    public FlutterWebviewPlugin() {}
     FlutterWebviewPlugin(Activity activity, Context context) {
         this.activity = activity;
         this.context = context;
