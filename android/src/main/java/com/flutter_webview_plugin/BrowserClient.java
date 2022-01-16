@@ -47,7 +47,7 @@ public class BrowserClient extends WebViewClient {
         data.put("url", url);
         data.put("type", "startLoad");
         Log.i(TAG, "####################################################onPageStarted ");
-        Log.i(TAG, FlutterWebviewPlugin.channel);
+        //Log.i(TAG, FlutterWebviewPlugin.channel);
         FlutterWebviewPlugin.channel.invokeMethod("onState", data);
     }
 
@@ -59,7 +59,7 @@ public class BrowserClient extends WebViewClient {
 
         FlutterWebviewPlugin.channel.invokeMethod("onUrlChanged", data);
         Log.i(TAG, "####################################################onPageFinished ");
-        Log.i(TAG, FlutterWebviewPlugin.channel);
+        //Log.i(TAG, FlutterWebviewPlugin.channel);
         data.put("type", "finishLoad");
         FlutterWebviewPlugin.channel.invokeMethod("onState", data);
 
