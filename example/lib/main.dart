@@ -22,12 +22,33 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
+void listener(FlutterWebviewPlugin flutterWebViewPlugin){
+  flutterWebViewPlugin.onStateChanged.listen((viewState) async
+  {
+    print("state : "+viewState.type.toString());
+    if (viewState.type==WebViewState.finishLoad) {
+      var input=await flutterWebViewPlugin.evalJavascript("document.documentElement.innerHTML");
+      print("input");
 
-class MyApp extends StatelessWidget {
+    }
+  });
+}
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
+  void initState() {
+    listener(flutterWebViewPlugin);
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter WebView Demo',
       theme: ThemeData(
@@ -117,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _codeCtrl = TextEditingController(text: 'window.navigator.userAgent');
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  //final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _history = [];
 
@@ -214,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      //key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('Plugin example app'),
       ),

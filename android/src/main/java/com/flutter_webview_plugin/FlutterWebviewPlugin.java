@@ -16,7 +16,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-//import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
@@ -27,7 +27,7 @@ import io.flutter.plugin.common.PluginRegistry;
 /**
  * FlutterWebviewPlugin
  */
-public class FlutterWebviewPlugin implements  ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
+public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
     private Activity activity;
     private WebviewManager webViewManager;
     private Context context;
@@ -333,12 +333,32 @@ public class FlutterWebviewPlugin implements  ActivityAware, MethodCallHandler, 
         return false;
     }
 
+    @Override
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
+        Log.i(TAG, "############################onAttachedToEngine");
+        channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
+        context = binding.getApplicationContext();
+
+        channel.setMethodCallHandler(this);
+
+        //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
+        //registrar.addActivityResultListener(instance);
+
+    }
+
+    @Override
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
+        Log.i(TAG, "#################################################onDetachedFromEngine");
+        //channel.setMethodCallHandler(null);
+       // channel = null;
+
+    }
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
         activity = binding.getActivity();
         if (webViewManager != null || webViewManager.closed != true) {
-            Log.i(TAG, "onAttachedToActivity set  activity");
+            Log.i(TAG, "#################################################onAttachedToActivity set  activity");
             webViewManager.setNewActivity(activity);
         }
         binding.addActivityResultListener(this);
@@ -346,19 +366,19 @@ public class FlutterWebviewPlugin implements  ActivityAware, MethodCallHandler, 
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        Log.i(TAG, "onDetachedFromActivityForConfigChanges ");
+        Log.i(TAG, "##################################################onDetachedFromActivityForConfigChanges ");
         onDetachedFromActivity();
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        Log.i(TAG, "onReattachedToActivityForConfigChanges ");
+        Log.i(TAG, "####################################################onReattachedToActivityForConfigChanges ");
         onAttachedToActivity(binding);
     }
 
     @Override
     public void onDetachedFromActivity() {
-        Log.i(TAG, "onDetachedFromActivity ");
+        Log.i(TAG, "####################################################onDetachedFromActivity ");
         if (webViewManager != null || webViewManager.closed != true) {
             Log.i(TAG, "onDetachedFromActivity set null ");
             webViewManager.setNewActivity(null);
