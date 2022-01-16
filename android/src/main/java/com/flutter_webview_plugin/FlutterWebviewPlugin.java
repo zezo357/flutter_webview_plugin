@@ -338,10 +338,10 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
         Log.i(TAG, "############################onAttachedToEngine");
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
         context = binding.getApplicationContext();
-        final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(activity, registrar.activeContext());
-        registrar.addActivityResultListener(instance);
+        final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(activity, context);
+        //activity.addActivityResultListener(instance);
         channel.setMethodCallHandler(instance);
-        
+
         //channel.setMethodCallHandler(this);
         //binding.addActivityResultListener(this);
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
