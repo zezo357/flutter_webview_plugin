@@ -40,9 +40,10 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     public static void registerWith(PluginRegistry.Registrar registrar) {
         if (registrar.activity() != null) {
             channel = new MethodChannel(registrar.messenger(), CHANNEL_NAME);
-            final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
-            registrar.addActivityResultListener(instance);
-            channel.setMethodCallHandler(instance);
+            activity=registrar.activity();
+            context=registrar.activeContext();
+            registrar.addActivityResultListener(this);
+            channel.setMethodCallHandler(this);
         }
     }
 
@@ -337,10 +338,9 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     public void onAttachedToEngine(FlutterPluginBinding binding) {
         Log.i(TAG, "############################onAttachedToEngine");
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
-        context = binding.getApplicationContext();
-        final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(activity, context);
+        //context = binding.getApplicationContext();
         //activity.addActivityResultListener(instance);
-        channel.setMethodCallHandler(instance);
+        channel.setMethodCallHandler(this);
 
         //channel.setMethodCallHandler(this);
         //binding.addActivityResultListener(this);
