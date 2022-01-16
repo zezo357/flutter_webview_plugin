@@ -7,7 +7,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
+import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 public class BrowserClient extends WebViewClient {
     private Pattern invalidUrlPattern = null;
+    private static final String TAG = "flutter_webview_plugin";
 
     public BrowserClient() {
         this(null);
@@ -45,6 +46,8 @@ public class BrowserClient extends WebViewClient {
         Map<String, Object> data = new HashMap<>();
         data.put("url", url);
         data.put("type", "startLoad");
+        Log.i(TAG, "####################################################onPageStarted ");
+        Log.i(TAG, channel);
         FlutterWebviewPlugin.channel.invokeMethod("onState", data);
     }
 
@@ -55,7 +58,8 @@ public class BrowserClient extends WebViewClient {
         data.put("url", url);
 
         FlutterWebviewPlugin.channel.invokeMethod("onUrlChanged", data);
-
+        Log.i(TAG, "####################################################onPageFinished ");
+        Log.i(TAG, channel);
         data.put("type", "finishLoad");
         FlutterWebviewPlugin.channel.invokeMethod("onState", data);
 
