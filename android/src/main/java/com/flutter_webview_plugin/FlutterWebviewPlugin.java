@@ -40,10 +40,9 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     public static void registerWith(PluginRegistry.Registrar registrar) {
         if (registrar.activity() != null) {
             channel = new MethodChannel(registrar.messenger(), CHANNEL_NAME);
-            activity=registrar.activity();
-            context=registrar.activeContext();
-            registrar.addActivityResultListener(this);
-            channel.setMethodCallHandler(this);
+            final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
+            registrar.addActivityResultListener(instance);
+            channel.setMethodCallHandler(instance);
         }
     }
 
@@ -338,11 +337,11 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     public void onAttachedToEngine(FlutterPluginBinding binding) {
         Log.i(TAG, "############################onAttachedToEngine");
         channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
-        //context = binding.getApplicationContext();
+        //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(activity, context);
         //activity.addActivityResultListener(instance);
-        channel.setMethodCallHandler(this);
+        //channel.setMethodCallHandler(instance);
 
-        //channel.setMethodCallHandler(this);
+        channel.setMethodCallHandler(this);
         //binding.addActivityResultListener(this);
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
         //registrar.addActivityResultListener(instance);
@@ -352,39 +351,41 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
         Log.i(TAG, "#################################################onDetachedFromEngine");
-        //channel.setMethodCallHandler(null);
+        channel.setMethodCallHandler(null);
        // channel = null;
 
     }
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
+        /*
         activity = binding.getActivity();
         if (webViewManager != null || webViewManager.closed != true) {
             Log.i(TAG, "#################################################onAttachedToActivity set  activity");
             webViewManager.setNewActivity(activity);
         }
         binding.addActivityResultListener(this);
+        */
     }
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        Log.i(TAG, "##################################################onDetachedFromActivityForConfigChanges ");
-        onDetachedFromActivity();
+        //Log.i(TAG, "##################################################onDetachedFromActivityForConfigChanges ");
+        //onDetachedFromActivity();
     }
 
     @Override
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
-        Log.i(TAG, "####################################################onReattachedToActivityForConfigChanges ");
-        onAttachedToActivity(binding);
+        //Log.i(TAG, "####################################################onReattachedToActivityForConfigChanges ");
+        //onAttachedToActivity(binding);
     }
 
     @Override
     public void onDetachedFromActivity() {
         Log.i(TAG, "####################################################onDetachedFromActivity ");
-        if (webViewManager != null || webViewManager.closed != true) {
-            Log.i(TAG, "onDetachedFromActivity set null ");
-            webViewManager.setNewActivity(null);
-        }
+        //if (webViewManager != null || webViewManager.closed != true) {
+            //Log.i(TAG, "onDetachedFromActivity set null ");
+            //webViewManager.setNewActivity(null);
+        //}
     }
 }
