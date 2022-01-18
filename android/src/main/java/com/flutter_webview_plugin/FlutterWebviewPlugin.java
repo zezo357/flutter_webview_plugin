@@ -351,7 +351,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
     @Override
     public void onDetachedFromEngine(FlutterPluginBinding binding) {
         Log.i(TAG, "#################################################onDetachedFromEngine");
-        channel.setMethodCallHandler(null);
+        //channel.setMethodCallHandler(null);
        // channel = null;
 
     }
