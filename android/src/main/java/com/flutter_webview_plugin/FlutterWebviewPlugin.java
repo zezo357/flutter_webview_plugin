@@ -324,4 +324,4 @@ public class FlutterWebviewPlugin implements MethodCallHandler, PluginRegistry.A
         }
         return false;
     }
-}}
+}
