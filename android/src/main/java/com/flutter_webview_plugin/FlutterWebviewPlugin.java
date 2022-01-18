@@ -340,6 +340,7 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
         //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(activity, context);
         //activity.addActivityResultListener(instance);
         //channel.setMethodCallHandler(instance);
+        context = binding.getApplicationContext();
 
         channel.setMethodCallHandler(this);
         //binding.addActivityResultListener(this);
